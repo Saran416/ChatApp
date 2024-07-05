@@ -1,4 +1,4 @@
-// import axios from "axios"
+import axios from "axios"
 // import { useNavigate } from "react-router-dom"
 import Navbar from "../Components/Navbar"
 import { useState, useContext } from "react"
@@ -9,10 +9,11 @@ const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordView,setPasswordView] = useState('password')
-  // const [error, setError] = useState("")
+  const [error, setError] = useState("")
   // const navigate = useNavigate()
 
-  const {updateRegisterInfo } = useContext(UserContext)
+  const { updateUserInfo } = useContext(UserContext)
+
 
   const onRegister = ()=>{
     const user = {
@@ -21,15 +22,15 @@ const Register = () => {
       password
     }
 
-    // axios.post('http://localhost:5000/api/users/register',user).then((res)=>{
-    //   console.log(res.data)
-    //   navigate(`/${res.data._id}`)
-    // }).catch((err)=>{
-    //   console.log("Error while registering: ", err.response.data)
-    //   setError(err.response.data)
-    // })
-
-    updateRegisterInfo(user)
+    axios.post('http://localhost:5000/api/users/register',user).then((res)=>{
+      // console.log(res.data)
+      updateUserInfo(res.data)
+      localStorage.setItem("User", JSON.stringify(res.data))
+      // navigate(`/${res.data._id}`)
+    }).catch((err)=>{
+      console.log("Error while registering: ", err.response.data)
+      setError(err.response.data)
+    })
   }
 
   return (
@@ -60,7 +61,7 @@ const Register = () => {
           <label>view password</label>
         </div>
         <button onClick={onRegister}>Register</button>
-        {/* {<p className="error">{error}</p>} */}
+        {<p className="error">{error}</p>}
       </div>
     </div>
   )

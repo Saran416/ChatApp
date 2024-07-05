@@ -1,14 +1,14 @@
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
 import Navbar from "../Components/Navbar"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { UserContext } from "../context/userContext"
 
 const Login = () => {
+  const {updateUserInfo} = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordView,setPasswordView] = useState('password')
   const [error, setError] = useState("")
-  const navigate = useNavigate()
 
   const onLogin = ()=>{
     const user = {
@@ -18,7 +18,8 @@ const Login = () => {
 
     axios.post('http://localhost:5000/api/users/login',user).then((res)=>{
       console.log(res.data)
-      navigate(`/${res.data._id}`)
+      updateUserInfo(res.data)
+      localStorage.setItem("User", JSON.stringify(res.data))
     }).catch((err)=>{
       console.log("Error while logging in: ", err.response.data)
       setError(err.response.data)
