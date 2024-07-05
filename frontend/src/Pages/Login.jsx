@@ -17,7 +17,7 @@ const Login = () => {
     }
 
     axios.post('http://localhost:5000/api/users/login',user).then((res)=>{
-      console.log(res.data)
+      // console.log(res.data)
       updateUserInfo(res.data)
       localStorage.setItem("User", JSON.stringify(res.data))
     }).catch((err)=>{
