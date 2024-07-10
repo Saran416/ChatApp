@@ -43,7 +43,7 @@ const Register = () => {
         </div>
         <div className="input">
           <label>Mail</label>
-          <input type="text" value={email} onChange={e=>setEmail(e.target.value)} required/>
+          <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required/>
         </div>
         <div className="input">
           <label>Password</label>

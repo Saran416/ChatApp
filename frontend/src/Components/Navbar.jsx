@@ -18,14 +18,18 @@ const Navbar = () => {
             <Link className='links'to='/'><h1>ChatApp</h1></Link>
             {
                 user?
-                <div className='right'>
-                    <h4>Logged in as {user.name}</h4>
-                    <h4><Link to='/login' className='links' onClick={logout}>Logout</Link></h4>
-                </div>
+                <>
+                    <div className="center">
+                        <h4>Logged in as {user.name}</h4>
+                    </div>
+                    <div className='right'>
+                        <h3><Link to='/login' className='links' onClick={logout}>Logout</Link></h3>
+                    </div>
+                </>
                 :
                 <div className="right">
-                <h2><Link to='/login' className='links'>Login</Link></h2>
-                <h2><Link to='/register' className='links'>Register</Link></h2>
+                <h3><Link to='/login' className='links'>Login</Link></h3>
+                <h3><Link to='/register' className='links'>Register</Link></h3>
             </div>
             }
             

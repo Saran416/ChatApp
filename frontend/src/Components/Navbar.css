@@ -12,17 +12,22 @@
     display: flex;
     margin-left: auto;
     align-items: center;
-    h2{
+    h3{
         margin: 0.5em;
     }
-    h4{
-        margin: 0.8em;
-    }
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .links{
     text-decoration: none;
     color: #16534f;
+    font-size: 1em;
 }
 
 .links:visited{

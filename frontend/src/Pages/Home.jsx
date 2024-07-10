@@ -1,13 +1,12 @@
 import Navbar from "../Components/Navbar"
-
+import Chat from "../Components/Chat"
 
 const Home = () => {
 
   return (
     <div>
       <Navbar></Navbar>
-        <div className="img-container">
-      </div>
+      <Chat></Chat>
     </div>
   )
 }
