@@ -99,7 +99,7 @@ userRouter.get('/find/:userId',async (req,res)=>{
 userRouter.get('/',async(req,res)=>{
     try{
         const user = await userModel.find()
-
+        
         if(!user){
             return res.status(400).json("No users..")
         }

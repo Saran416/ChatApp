@@ -1,11 +1,11 @@
 .navbar{
-    background-color: #9DD9D2;
-    color: #16534f;
+    background-color: #333;
+    color: #f5ebe0;
     padding: 2em;
     display: flex;
     align-items: center;
-    max-height: 12vh;
-    box-shadow: 5px 5px 5px #4c7976;
+    max-height: 10vh;
+    /* box-shadow: 5px 5px 5px #202020; */
 }
 
 .right{
@@ -13,8 +13,8 @@
     margin-left: auto;
     align-items: center;
     h3{
-        margin: 0.5em;
-    }
+        margin-left: 0.5em;
+    }   
 }
 
 .center{
@@ -26,20 +26,20 @@
 
 .links{
     text-decoration: none;
-    color: #16534f;
+    color: #f5ebe0;
     font-size: 1em;
 }
 
 .links:visited{
-    color: #16534f;
+    color: #f5ebe0;
 }
 
 .links:active{
-    color: #16534f;
+    color: #f5ebe0;
 }
 
 .links:hover{
-    color: #072c2a
+    color: #E9EDC9
 }
 
 
