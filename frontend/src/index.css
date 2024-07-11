@@ -1,6 +1,6 @@
 body{
     background-color: grey;
-    color:#f5ebe0;
+    color:white;
     font-family: monospace;
     font-size: 1.5rem;
 }
@@ -20,14 +20,14 @@ body{
     justify-content: space-evenly;
     margin-top: 15vh;
     font-size: 1.3rem;
-    background-color: #9DD9D2;
+    background-color: #333;
     margin-left: auto;
     margin-right: auto;
     max-width: 40vw;
     padding: 1.5em;
     border-radius: 0.5em;
     overflow: auto;
-    box-shadow: 5px 5px 5px #4c7976;
+    box-shadow: 5px 5px 5px #333;
 }
 
 .input{
@@ -46,20 +46,20 @@ body{
 
 .form button{
     padding: 0.5em;
-    background-color:#79BCB8;
+    background-color:grey;
     border: none;
     border-radius: 0.5em;
-    color: #16534f;
+    color: white;
     font-weight: 600;
     font-size: medium;
 }
 
 .form button:hover{
     padding: 0.5em;
-    background-color:#5ca39d;
+    background-color:white;
     border: none;
     border-radius: 0.5em;
-    color: #16534f;
+    color: #333;
     font-weight: 600;
     font-size: medium;
 }
@@ -70,6 +70,7 @@ body{
     align-items: center;
     justify-content: flex-end;
     font-size: 0.8em;
+    accent-color: white;
 }
 
 .error{
@@ -78,5 +79,5 @@ body{
 }
 
 .input input{
-    background-color: #dbf1ef;
+    background-color: #d7d7d7;
 }

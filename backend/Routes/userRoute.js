@@ -11,6 +11,7 @@ const createToken = (_id) => {
     return jwt.sign({_id},JWT_SECRET_KEY,{expiresIn: "3d"})
 }
 
+//register user
 userRouter.post('/register', async(req,res)=>{
     try{
         const {name, email, password} = req.body;
@@ -54,6 +55,7 @@ userRouter.post('/register', async(req,res)=>{
     }
 })
 
+//login user
 userRouter.post("/login", async (req,res)=>{
     try{
         const {email, password} = req.body;
@@ -79,6 +81,7 @@ userRouter.post("/login", async (req,res)=>{
     }
 })
 
+//get a particular user
 userRouter.get('/find/:userId',async (req,res)=>{
     const userId = req.params.userId
     try{
@@ -96,6 +99,7 @@ userRouter.get('/find/:userId',async (req,res)=>{
     }
 })
 
+//get all users
 userRouter.get('/',async(req,res)=>{
     try{
         const user = await userModel.find()
