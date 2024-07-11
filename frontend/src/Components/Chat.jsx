@@ -58,7 +58,6 @@ const Chat = () => {
     })
   }
 
-  setTimeout(console.log(chatslist), 2000)
 
   return (
     <div className='chat'>
