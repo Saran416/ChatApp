@@ -23,7 +23,7 @@ const Navbar = () => {
                         <h4>Logged in as {user.name}</h4>
                     </div>
                     <div className='right'>
-                        <h3><Link to='/login' className='links' onClick={logout}>Logout</Link></h3>
+                        <h3 className='logout'><Link to='/login' className='links' onClick={logout}>Logout</Link></h3>
                     </div>
                 </>
                 :

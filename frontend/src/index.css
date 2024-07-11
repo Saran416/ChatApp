@@ -1,5 +1,5 @@
 body{
-    background-color: grey;
+    background-color: #333;
     color:white;
     font-family: monospace;
     font-size: 1.5rem;
@@ -20,14 +20,14 @@ body{
     justify-content: space-evenly;
     margin-top: 15vh;
     font-size: 1.3rem;
-    background-color: #333;
+    background-color: #000;
     margin-left: auto;
     margin-right: auto;
     max-width: 40vw;
     padding: 1.5em;
-    border-radius: 0.5em;
+    border-radius: 0.8em;
     overflow: auto;
-    box-shadow: 5px 5px 5px #333;
+    border: 5px solid rgb(179, 179, 179);
 }
 
 .input{
@@ -45,23 +45,23 @@ body{
 }
 
 .form button{
-    padding: 0.5em;
-    background-color:grey;
-    border: none;
-    border-radius: 0.5em;
-    color: white;
-    font-weight: 600;
-    font-size: medium;
-}
-
-.form button:hover{
-    padding: 0.5em;
+    padding: 0.8em;
     background-color:white;
     border: none;
     border-radius: 0.5em;
     color: #333;
     font-weight: 600;
-    font-size: medium;
+    font-size: 0.8em;
+}
+
+.form button:hover{
+    padding: 0.8em;
+    background-color:#333;
+    border: none;
+    border-radius: 0.5em;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8em;
 }
 
 .viewpwd{
@@ -79,5 +79,5 @@ body{
 }
 
 .input input{
-    background-color: #d7d7d7;
+    background-color: white;
 }
