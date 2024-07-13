@@ -21,7 +21,7 @@ chatRouter.post('/', async(req,res)=>{
 
         const respose = await newChat.save()
 
-        return res.status(200).json(response)
+        return res.status(200).json(newChat)
     }
     catch(err){
         console.log(err)

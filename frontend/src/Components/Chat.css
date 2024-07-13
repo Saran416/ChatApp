@@ -17,10 +17,10 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    h2{
+    h3{
         margin-top: 0.5em;
     }
-}
+}   
 
 .chat-right{
     background-color: #000;
@@ -51,6 +51,7 @@
         border: none;
         height: 2em;
         font-size: 0.8em;
+        font-weight: 900;
     }
 }
 
@@ -62,6 +63,7 @@
     height: 2em;
     font-size: 0.8em;
     margin-right: 1em;
+    font-weight: 900;
 }
 
 .chat-right-message{
