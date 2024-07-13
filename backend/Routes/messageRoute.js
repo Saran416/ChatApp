@@ -14,23 +14,22 @@ messageRouter.post('/',async(req,res)=>{
 
     try{
         const response = await message.save()
-        res.send(200).json(response)
+        res.status(200).json(response)
     }   
     catch(err){
         console.log(err)
-        res.send(500).json(err)
+        res.status(500).json(err)
     }
 })
 
-messageRouter.get('/',async(req,res)=>{
-    const {chatId} = req.params();
-
+messageRouter.get('/:chatId',async(req,res)=>{
+    const {chatId} = req.params;
     try{
         const messages = await messageModel.find({chatId})
-        res.send(200).json(messages)
+        res.status(200).json(messages)
     }catch(err){
         console.log(err)
-        res.send(500).json(err)
+        res.status(500).json(err)
     }
 })
 

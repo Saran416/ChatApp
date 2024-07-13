@@ -7,8 +7,13 @@ const Chat = () => {
   const [userslist,setUserslist] = useState([])
   const [chatslist, setChatslist] = useState([])
   const [nameslist, setNameslist] = useState([])
+  const [activechat, setActivechat] = useState('')
+  const [message, setMessage] = useState('')
   const { user } = useContext(UserContext)
-   
+  const [messageslist,setMessageslist] = useState([])
+  
+  //Chats list portion
+
   useEffect(
     ()=>{axios.get('http://localhost:5000/api/users')
     .then((res)=>{
@@ -35,11 +40,11 @@ const Chat = () => {
         if(chatslist[i].members[j]!= user._id){
           axios.get(`http://localhost:5000/api/users/find/${chatslist[i].members[j]}`).then((res)=>{
             for(let j=0;j<nameslist.length;j++){
-              if(nameslist[j]==res.data.name){
+              if(nameslist[j].name==res.data.name){
                 return 
               }
             }
-            setNameslist(n=>[...n, res.data.name])
+            setNameslist(n=>[...n, {name: res.data.name, chatId: chatslist[i]._id}])
           }).catch((err)=>{
             console.log(err)
           })
@@ -50,7 +55,7 @@ const Chat = () => {
 
   const check = (name)=>{
     for(let i=0;i<nameslist.length;i++){
-      if(name == nameslist[i]){
+      if(name == nameslist[i].name){
         return false
       }
     }
@@ -63,9 +68,42 @@ const Chat = () => {
       firstId: user._id,
       secondId: e.target.id
     }).then((res)=>{
+      setMessage('')
       setChatslist(c=>[...c, res.data])
     })
   }
+
+  // Messages portion
+  const openmessages = (e)=>{
+    if(e){
+      setActivechat(e.target.id)
+    }
+    axios.get(`http://localhost:5000/api/messages/${activechat || e.target.id}`).then((res)=>{
+      setMessageslist(res.data)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
+
+  const sendmessage = (e)=>{
+    console.log(activechat)
+    e.preventDefault()
+    axios.post('http://localhost:5000/api/messages',
+        {
+          chatId: activechat,
+          senderId: user._id,
+          text: message,
+    }).then(()=>{
+      console.log("message sent")
+      openmessages(null)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
+
+  useEffect(()=>{
+    console.log(messageslist)
+  },[messageslist])
 
   return (
     <div className='chat'>
@@ -84,8 +122,8 @@ const Chat = () => {
         <h3>Your Friends</h3>
         <br />
         <ul className='chat-userlist'>
-          {nameslist.map((u,index)=>{
-              return <li key={index}>{u}</li> 
+          {nameslist.map((u)=>{
+              return <li key={u.chatId} onClick={(e)=>openmessages(e)} id={u.chatId}>{u.name}</li> 
           })
           }
         </ul>
@@ -94,10 +132,23 @@ const Chat = () => {
           <div className="chat-right-bottom">
             <button>+</button>
             <form className='chat-right-form'>
-              <input type="text" placeholder='Message' className='chat-right-message'/>
-              <button type='submit' className='send' onClick={(e)=>{sendmessage(e)}}>&gt;</button>
+              <input type="text" value={message} placeholder='Message' className='chat-right-message' onChange={e=>{setMessage(e.target.value)}}/>
+              <button type='submit' className='send' onClick={(e)=>{sendmessage(e)} }>&gt;</button>
             </form>
           </div>
+          {!(activechat=='') && 
+          <div className='messages'>
+            {
+              messageslist.map(i=>{
+                if(i.senderId==user._id){
+                  return <div className="me"><p>{i.text}</p></div>
+                }
+                else{
+                  return <div className="friend"><p>{i.text}</p></div>
+                }
+              })
+            }
+          </div>}
       </div> 
     </div>
   )
