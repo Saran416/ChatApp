@@ -1,16 +1,21 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, act } from 'react'
 import './Chat.css'
 import axios from 'axios'
 import { UserContext } from '../context/userContext'
+import {io} from 'socket.io-client'
+
 
 const Chat = () => {
+  const { user } = useContext(UserContext)
   const [userslist,setUserslist] = useState([])
   const [chatslist, setChatslist] = useState([])
   const [nameslist, setNameslist] = useState([])
   const [activechat, setActivechat] = useState('')
   const [message, setMessage] = useState('')
-  const { user } = useContext(UserContext)
   const [messageslist,setMessageslist] = useState([])
+  const [socket, setSocket] = useState(null)
+  const [newMessage, setNewMessage] = useState('')
+  const [activeChatName, setActiveChatName] = useState('')
   
   //Chats list portion
 
@@ -37,14 +42,14 @@ const Chat = () => {
   useEffect(()=>{
     for(let i=0;i<chatslist.length;i++){
       for(let j=0;j<2;j++){
-        if(chatslist[i].members[j]!= user._id){
+        if(chatslist[i].members[j] != user._id){
           axios.get(`http://localhost:5000/api/users/find/${chatslist[i].members[j]}`).then((res)=>{
             for(let j=0;j<nameslist.length;j++){
               if(nameslist[j].name==res.data.name){
                 return 
               }
             }
-            setNameslist(n=>[...n, {name: res.data.name, chatId: chatslist[i]._id}])
+            setNameslist(n=>[...n, {name: res.data.name, chatId: chatslist[i]._id, userId: res.data._id}])
           }).catch((err)=>{
             console.log(err)
           })
@@ -53,6 +58,84 @@ const Chat = () => {
   }
   },[chatslist])
 
+  
+  const addfriend = (e)=>{
+    axios.post('http://localhost:5000/api/chats',{
+      firstId: user._id,
+      secondId: e.target.id
+    }).then((res)=>{
+      setChatslist(c=>[...c, res.data])
+    })
+  }
+  
+  // Messages portion
+  const openmessages = (e)=>{
+    if(e != null){
+      setActivechat(e.target.id)
+      axios.get(`http://localhost:5000/api/messages/${e.target.id}`).then((res)=>{
+        setMessageslist(res.data)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
+    else{
+      axios.get(`http://localhost:5000/api/messages/${activechat}`).then((res)=>{
+        setMessageslist(res.data)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
+  }
+
+  const sendmessage = (e)=>{
+    e.preventDefault()
+    axios.post('http://localhost:5000/api/messages',
+      {
+        chatId: activechat,
+        senderId: user._id,
+        text: message,
+      }).then((res)=>{
+        setNewMessage(res.data)
+        openmessages(null)
+        
+      }).catch((err)=>{
+        console.log(err)
+      })
+  }
+    
+  useEffect(()=>{
+    const newSocket = io('http://localhost:5000');
+    setSocket(newSocket)
+    return ()=>{
+      socket.disconnect()
+    }
+  },[user])
+
+  //send message
+  useEffect(()=>{
+    if(socket==null) return;
+    socket.emit('sendMessage', newMessage)
+    },[newMessage]);
+          
+  //recieve message
+  useEffect(()=>{
+    if(socket==null) return;
+    socket.on("getMessage", (res)=>{
+      let messageslength = messageslist.length
+      if(messageslength==0){
+        console.log([...messageslist, res])
+        setMessageslist((prev)=>[...prev, res]);
+      }
+      else if(res.chatId != messageslist[messageslength-1].chatId){
+        console.log([...messageslist, res])
+        setMessageslist((prev)=>[...prev, res])
+      }
+    })
+  return ()=>{
+    socket.off('getMessage')
+  }
+  }, [activechat, socket])
+  
   const check = (name)=>{
     for(let i=0;i<nameslist.length;i++){
       if(name == nameslist[i].name){
@@ -61,79 +144,46 @@ const Chat = () => {
     }
     return true
   }
-
-
-  const addfriend = (e)=>{
-    axios.post('http://localhost:5000/api/chats',{
-      firstId: user._id,
-      secondId: e.target.id
-    }).then((res)=>{
-      setMessage('')
-      setChatslist(c=>[...c, res.data])
-    })
-  }
-
-  // Messages portion
-  const openmessages = (e)=>{
-    if(e){
-      setActivechat(e.target.id)
-    }
-    axios.get(`http://localhost:5000/api/messages/${activechat || e.target.id}`).then((res)=>{
-      setMessageslist(res.data)
-    }).catch((err)=>{
-      console.log(err)
-    })
-  }
-
-  const sendmessage = (e)=>{
-    console.log(activechat)
-    e.preventDefault()
-    axios.post('http://localhost:5000/api/messages',
-        {
-          chatId: activechat,
-          senderId: user._id,
-          text: message,
-    }).then(()=>{
-      console.log("message sent")
-      openmessages(null)
-    }).catch((err)=>{
-      console.log(err)
-    })
-  }
-
+  
   useEffect(()=>{
-    console.log(messageslist)
-  },[messageslist])
+    for(let i=0;i<nameslist.length;i++){
+      if(nameslist[i].chatId == activechat){
+        setActiveChatName(nameslist[i].name)
+      }
+    }
+  },[activechat])
+  
 
   return (
-    <div className='chat'>
+      <div className='chat'>
       <div className="chat-left">
         <h3>Add Friends</h3>
         <br />
-        <ul className='chat-userlist'>
+        <div className='chat-userlist'>
           {userslist.map((u)=>{
             if(user._id != u._id && check(u.name)){
-              return <li key={u._id} onClick={(e)=>{addfriend(e)}} id={u._id}>{u.name}</li>
+              return <button key={u._id} onClick={(e)=>{addfriend(e)}} id={u._id} name={u.name}>{u.name}</button>
             }
           })
-          }
-        </ul>
+        }
+        </div>
         
         <h3>Your Friends</h3>
         <br />
-        <ul className='chat-userlist'>
+        <div className='chat-userlist'>
           {nameslist.map((u)=>{
-              return <li key={u.chatId} onClick={(e)=>openmessages(e)} id={u.chatId}>{u.name}</li> 
+            return <button key={u.chatId} onClick={(e)=>openmessages(e)} id={u.chatId}>{u.name}</button>  
           })
           }
-        </ul>
+        </div>
       </div>
+
+
       <div className="chat-right">
           <div className="chat-right-bottom">
-            <button>+</button>
-            <form className='chat-right-form'>
+            <form className='chat-right-form' onSubmit={(e)=>{sendmessage(e)}}>
               <input type="text" value={message} placeholder='Message' className='chat-right-message' onChange={e=>{setMessage(e.target.value)}}/>
-              <button type='submit' className='send' onClick={(e)=>{sendmessage(e)} }>&gt;</button>
+              <button type='submit' className='send'>&gt;</button>
             </form>
           </div>
           {!(activechat=='') && 
@@ -141,14 +191,20 @@ const Chat = () => {
             {
               messageslist.map(i=>{
                 if(i.senderId==user._id){
-                  return <div className="me"><p>{i.text}</p></div>
+                  return <div className="me" key={i._id}><p>{i.text}</p></div>
                 }
                 else{
-                  return <div className="friend"><p>{i.text}</p></div>
+                  return <div className="friend" key={i._id}><p>{i.text}</p></div>
                 }
               })
             }
           </div>}
+
+          <div className="chat-name">
+            {
+              activeChatName? <p>{activeChatName}</p> : <p></p>
+            }
+          </div>
       </div> 
     </div>
   )
