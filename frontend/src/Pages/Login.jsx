@@ -48,8 +48,9 @@ const Login = () => {
             <label >view password</label>
           </div>
           <button type='submit'>Login</button>
+          {<p className="error">{error}</p>}
         </form>
-        {<p className="error">{error}</p>}
+        
     </div>
   )
 }

@@ -15,7 +15,7 @@ const Register = () => {
   const { updateUserInfo } = useContext(UserContext)
 
 
-  const onRegister = ()=>{
+  const onRegister = (e)=>{
     e.preventDefault();
     const user = {
       name,
