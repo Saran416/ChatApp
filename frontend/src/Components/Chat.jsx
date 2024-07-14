@@ -108,6 +108,7 @@ const Chat = () => {
     const newSocket = io('http://localhost:5000');
     setSocket(newSocket)
     return ()=>{
+      if(socket==null) return
       socket.disconnect()
     }
   },[user])
