@@ -95,8 +95,9 @@ const Chat = () => {
         senderId: user._id,
         text: message,
       }).then((res)=>{
+        setMessage('')
         setNewMessage(res.data)
-        openmessages(null)
+        // openmessages(null)
         
       }).catch((err)=>{
         console.log(err)
@@ -132,6 +133,7 @@ const Chat = () => {
       }
     })
   return ()=>{
+    if(socket==null) return
     socket.off('getMessage')
   }
   }, [activechat, socket])

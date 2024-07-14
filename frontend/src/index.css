@@ -13,6 +13,7 @@ body{
 
 /* for register and login page*/
 .form{
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,12 +31,12 @@ body{
     border: 5px solid rgb(179, 179, 179);
 }
 
-.input{
+.input-container{
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center ;
 }
 
 .checkbox{
@@ -52,37 +53,45 @@ body{
     color: #333;
     font-weight: 600;
     font-size: 0.8em;
+    margin-bottom: 1em;
 }
 
 .form button:hover{
-    padding: 0.8em;
     background-color:#333;
-    border: none;
-    border-radius: 0.5em;
-    color: white;
-    font-weight: 600;
-    font-size: 0.8em;
+    color: black;
 }
 
 .viewpwd{
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    font-size: 0.8em;
+    justify-content: center;
+    font-size: 1em;
     accent-color: white;
+    margin-bottom: 1em;
 }
 
 .error{
-    color: #DE6B48;
-    font-size: 1rem;
-}
-
-.input input{
-    background-color: white;
+    color: rgb(255, 95, 95);
+    font-size: 0.9em;
 }
 
 ::selection{
     background-color: white;
     color: #000;
 }
+
+.input{
+    background-color: black;
+    color: white;
+    height: 3em;
+    width: 60%;
+    padding-left: 1em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    border: 4px solid white;
+    border-radius: 15px;
+    font-size: 0.9em;
+    margin-bottom: 1em;
+}
+

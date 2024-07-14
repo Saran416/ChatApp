@@ -1,7 +1,7 @@
 import Login from "./Pages/Login"
 import Register from "./Pages/Register"
 import Home from "./Pages/Home"
-import {BrowserRouter,Routes, Route, Navigate} from 'react-router-dom'
+import {Routes, Route, Navigate} from 'react-router-dom'
 import { UserContext } from "./context/userContext"
 import { useContext } from "react"
 

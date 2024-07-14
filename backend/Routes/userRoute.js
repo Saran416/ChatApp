@@ -63,13 +63,13 @@ userRouter.post("/login", async (req,res)=>{
         const user = await userModel.findOne({email});
 
         if(!user){
-            return res.status(400).json("Invalid email or password");  
+            return res.status(400).json("Invalid mail or password...");  
         }
 
         const isValidPassword = await bcrypt.compare(password, user.password);
 
         if(!isValidPassword){
-            return res.status(400).json("Invalid email or password")
+            return res.status(400).json("Invalid mail or password...")
             
         }  
         const token = createToken(user._id)

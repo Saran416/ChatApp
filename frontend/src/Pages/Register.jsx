@@ -16,15 +16,16 @@ const Register = () => {
 
 
   const onRegister = ()=>{
+    e.preventDefault();
     const user = {
       name,
       email,
       password
-    }
+    };
 
     axios.post('http://localhost:5000/api/users/register',user).then((res)=>{
       // console.log(res.data)
-      updateUserInfo(res.data)
+      updateUserInfo(res.data);
       localStorage.setItem("User", JSON.stringify(res.data))
       // navigate(`/${res.data._id}`)
     }).catch((err)=>{
@@ -36,18 +37,15 @@ const Register = () => {
   return (
     <div>
       <Navbar isLoggedIn={false} ></Navbar>
-      <div className="form">
-        <div className="input">
-          <label>Name</label>
-          <input type="text" value={name} onChange={e=>setName(e.target.value)} required/>
+      <form onSubmit={(e)=>{onRegister(e)}} className="form">
+        <div className="input-container">
+          <input type="text" value={name} onChange={e=>setName(e.target.value.trim())} required placeholder="Name" className="input"/>
         </div>
-        <div className="input">
-          <label>Mail</label>
-          <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required/>
+        <div className="input-container">
+          <input type="email" value={email} onChange={e=>setEmail(e.target.value.trim())} required placeholder="Mail" className="input"/>
         </div>
-        <div className="input">
-          <label>Password</label>
-          <input type={passwordView} value={password} onChange={e=>setPassword(e.target.value)} required/>
+        <div className="input-container">
+          <input type={passwordView} value={password} onChange={e=>setPassword(e.target.value)} required placeholder="Password" className="input"/>
         </div>
         <div className="viewpwd">
           <input type="checkbox" className="checkbox" onChange={(e)=>{
@@ -60,9 +58,9 @@ const Register = () => {
           }} value={passwordView}/>
           <label>view password</label>
         </div>
-        <button onClick={onRegister}>Register</button>
+        <button type='submit'>Register</button>
         {<p className="error">{error}</p>}
-      </div>
+      </form>
     </div>
   )
 }

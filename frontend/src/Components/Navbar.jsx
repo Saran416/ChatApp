@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { UserContext } from '../context/userContext'
 import './Navbar.css'
-
+import profilepic from '../assets/profilepic.png'
 import {Link} from 'react-router-dom'
 
 const Navbar = () => {
@@ -10,7 +10,6 @@ const Navbar = () => {
     const logout = ()=>{
         localStorage.removeItem("User")
         updateUserInfo(null)
-
     }
     
     return (
@@ -19,10 +18,11 @@ const Navbar = () => {
             {
                 user?
                 <>
-                    <div className="center">
-                        <h4>Logged in as {user.name}</h4>
-                    </div>
                     <div className='right'>
+                        <div className="profile">
+                            <img src={profilepic} alt="profilepic"/>
+                            <h4>{user.name}</h4>
+                        </div>
                         <h3 className='logout'><Link to='/login' className='links' onClick={logout}>Logout</Link></h3>
                     </div>
                 </>
@@ -32,7 +32,6 @@ const Navbar = () => {
                 <h3><Link to='/register' className='links'>Register</Link></h3>
             </div>
             }
-            
         </div>
   )
 }
