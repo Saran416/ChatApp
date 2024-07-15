@@ -15,12 +15,7 @@ A real-time chatapp created using MERN stack and Socket IO.
 
 ## Demo video:
 
-![demo](./Demo/chatapp-demo.mp4)
-
-<video width="320" height="240" controls>
-  <source src="./Demo/chatapp-demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![Watch the video](./Demo/2.png)](./Demo/chatapp-demo.mp4)
 
 ## Setup
 
