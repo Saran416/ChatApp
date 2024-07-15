@@ -1,6 +1,17 @@
 # ChatApp
 
-A real-time chatapp using MERN stack and Socket IO.
+A real-time chatapp created using MERN stack and Socket IO.
+
+<table>
+  <tr>
+    <td><img src="./Demo/1.png" alt="Image 1"/></td>
+    <td><img src="./Demo/2.png" alt="Image 2"/></td>
+  </tr>
+  <tr>
+    <td><img src="./Demo/3.png" alt="Image 3"/></td>
+    <td><img src="./Demo/4.png" alt="Image 4"/></td>
+  </tr>
+</table>
 
 ## Demo video:
 
