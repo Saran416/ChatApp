@@ -5,7 +5,7 @@
 
 .chat-left{
     background-color: #000;
-    flex-grow: 1;
+    width: 20%;
     height: 75vh;
     margin-top: 1.5em;
     margin-left: 1em;
@@ -25,7 +25,7 @@
 .chat-right{
     position: relative;
     background-color: #000;
-    flex-grow: 5;
+    width: 80%;
     min-height: 75vh;
     margin-top: 1.5em;
     margin-left: 1em;
@@ -109,19 +109,60 @@
 
 .me{
     display: flex;
-    justify-content: flex-end;padding: 0.5em;
-    padding: 0.5em;
+    justify-content: flex-end;
+    padding-top: 0.5em;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-bottom: 0.2em;
 }
 
 .friend{
     display: flex;
     justify-content: flex-start;
-    padding: 0.5em;
+    padding-top: 0.5em;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-bottom: 0.2em;
 }
 
 .messages{
-    max-height: 65vh;;
-    overflow: auto;
+    width: 100%;
+    max-height: 65vh; 
+    overflow:scroll;
+}
+
+.me{
+    span{
+        background-color: white;
+        color: black;
+        padding-left: 1em;
+        padding-right: 1em;
+        border-radius: 0.5em;
+        padding-top: 0.1em;
+        padding-bottom: 0.1em;
+        max-width: 50%;
+    }
+    span::selection{
+        background-color: black;
+        color: white;
+    }
+}
+
+.friend{
+    span{
+        background-color: grey;
+        color: black;
+        padding-left: 1em;
+        padding-right: 1em;
+        border-radius: 0.5em;
+        padding-top: 0.1em;
+        padding-bottom: 0.1em;
+        max-width: 50%;
+    }
+    span::selection{
+        background-color: black;
+        color: white;
+    }
 }
 
 .chat-name{
@@ -130,5 +171,6 @@
     position: absolute;
     left: 0.5em;
     top: -1.3em;
-    border: none
+    border: none;
+    border-radius: 10px;
 }

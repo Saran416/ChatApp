@@ -194,10 +194,10 @@ const Chat = () => {
             {
               messageslist.map(i=>{
                 if(i.senderId==user._id){
-                  return <div className="me" key={i._id}><p>{i.text}</p></div>
+                  return <div className="me" key={i._id}><span>{i.text}</span></div>
                 }
                 else{
-                  return <div className="friend" key={i._id}><p>{i.text}</p></div>
+                  return <div className="friend" key={i._id}><span>{i.text}</span></div>
                 }
               })
             }
