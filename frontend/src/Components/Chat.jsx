@@ -3,6 +3,7 @@ import './Chat.css'
 import axios from 'axios'
 import { UserContext } from '../context/userContext'
 import {io} from 'socket.io-client'
+import sendimg from '../assets/send.png'
 
 
 const Chat = () => {
@@ -89,6 +90,7 @@ const Chat = () => {
 
   const sendmessage = (e)=>{
     e.preventDefault()
+    if(message=='') return
     axios.post('http://localhost:5000/api/messages',
       {
         chatId: activechat,
@@ -185,8 +187,8 @@ const Chat = () => {
       <div className="chat-right">
           <div className="chat-right-bottom">
             <form className='chat-right-form' onSubmit={(e)=>{sendmessage(e)}}>
-              <input type="text" value={message} placeholder='Message' className='chat-right-message' onChange={e=>{setMessage(e.target.value)}}/>
-              <button type='submit' className='send'>&gt;</button>
+              <input type="text" value={message} placeholder='Message' className='chat-right-message' onChange={e=>{setMessage(e.target.value.trimStart())}}/>
+              <button type='submit' className='send'><img src={sendimg} alt=">" /></button>
             </form>
           </div>
           {!(activechat=='') && 

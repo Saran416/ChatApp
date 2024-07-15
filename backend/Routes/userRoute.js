@@ -1,15 +1,9 @@
 import express from 'express'
 import userModel from '../Models/userModel.js'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 import validator from 'validator'
-import { JWT_SECRET_KEY } from '../config.js'
 
 const userRouter = express.Router()
-
-const createToken = (_id) => {
-    return jwt.sign({_id},JWT_SECRET_KEY,{expiresIn: "3d"})
-}
 
 //register user
 userRouter.post('/register', async(req,res)=>{
@@ -46,9 +40,7 @@ userRouter.post('/register', async(req,res)=>{
 
         await user.save()
 
-        const token = createToken(user._id)
-
-        res.status(200).json({_id: user._id, name, email, token})
+        res.status(200).json({_id: user._id, name, email})
     }catch(err){
         console.log(err)
         res.status(500).json(err)
@@ -59,6 +51,10 @@ userRouter.post('/register', async(req,res)=>{
 userRouter.post("/login", async (req,res)=>{
     try{
         const {email, password} = req.body;
+
+        if (!email || !password){
+            return res.status(400).json("All fields are required..")
+        }
 
         const user = await userModel.findOne({email});
 
@@ -72,9 +68,8 @@ userRouter.post("/login", async (req,res)=>{
             return res.status(400).json("Invalid mail or password...")
             
         }  
-        const token = createToken(user._id)
 
-        res.status(200).json({_id: user._id, name: user.name, email, token})
+        res.status(200).json({_id: user._id, name: user.name, email})
     }catch(err){
         console.log(err)
         res.status(500).json(err)

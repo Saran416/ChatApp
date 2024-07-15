@@ -31,10 +31,10 @@ const Login = () => {
       <Navbar></Navbar>
         <form onSubmit={(e)=>{onLogin(e)}} className="form">
           <div className="input-container">
-            <input type="text" value={email} onChange={e=>setEmail(e.target.value.trim())} placeholder="Mail" required className="input"/>
+            <input type="text" value={email} onChange={e=>setEmail(e.target.value.trim())} placeholder="Mail" className="input"/>
           </div>
           <div className="input-container">
-            <input type={passwordView} value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" required className="input"/>
+            <input type={passwordView} value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" className="input"/>
           </div>
           <div className="viewpwd">
             <input type="checkbox" className="checkbox" onChange={(e)=>{

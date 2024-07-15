@@ -39,13 +39,13 @@ const Register = () => {
       <Navbar isLoggedIn={false} ></Navbar>
       <form onSubmit={(e)=>{onRegister(e)}} className="form">
         <div className="input-container">
-          <input type="text" value={name} onChange={e=>setName(e.target.value.trim())} required placeholder="Name" className="input"/>
+          <input type="text" value={name} onChange={e=>setName(e.target.value)} placeholder="Name" className="input"/>
         </div>
         <div className="input-container">
-          <input type="email" value={email} onChange={e=>setEmail(e.target.value.trim())} required placeholder="Mail" className="input"/>
+          <input type="email" value={email} onChange={e=>setEmail(e.target.value.trim())} placeholder="Mail" className="input"/>
         </div>
         <div className="input-container">
-          <input type={passwordView} value={password} onChange={e=>setPassword(e.target.value)} required placeholder="Password" className="input"/>
+          <input type={passwordView} value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" className="input"/>
         </div>
         <div className="viewpwd">
           <input type="checkbox" className="checkbox" onChange={(e)=>{
