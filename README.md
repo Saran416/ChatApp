@@ -15,7 +15,7 @@ A real-time chatapp created using MERN stack and Socket IO.
 
 ## Demo video:
 
-[![Watch the video](./Demo/2.png)](./Demo/chatapp-demo.mp4)
+![demo](./Demo/chatapp-demo.mp4)
 
 ## Setup
 
