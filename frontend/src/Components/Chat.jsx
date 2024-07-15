@@ -125,11 +125,11 @@ const Chat = () => {
     socket.on("getMessage", (res)=>{
       let messageslength = messageslist.length
       if(messageslength==0){
-        console.log([...messageslist, res])
+        // console.log([...messageslist, res])
         setMessageslist((prev)=>[...prev, res]);
       }
       else if(res.chatId != messageslist[messageslength-1].chatId){
-        console.log([...messageslist, res])
+        // console.log([...messageslist, res])
         setMessageslist((prev)=>[...prev, res])
       }
     })
