@@ -104,6 +104,7 @@
     }
     button:hover{
         background-color: grey;
+        cursor: pointer;
     }
 }
 
